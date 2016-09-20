@@ -14,6 +14,12 @@ $config = [
         ]
     ],
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'dd/MM/yyyy',
+            'decimalSeparator' => '.',
+            'thousandSeparator' => ',',
+            'currencyCode' => 'THB',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'N64j_y9_vS1uWqRzMOpCnzmxu1tvo2J5',

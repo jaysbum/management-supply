@@ -13,6 +13,8 @@ use Yii;
  * @property string $list_item
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $start_niin
+ * @property string $end_niin
  */
 class CatalogGroup extends \yii\db\ActiveRecord
 {
@@ -24,16 +26,22 @@ class CatalogGroup extends \yii\db\ActiveRecord
         return 'catalog_group';
     }
 
-    /**
-     * @inheritdoc
-     */
+    public function behaviors()
+    {
+        return [
+            \yii\behaviors\TimestampBehavior::className(),
+        ];
+    }
     public function rules()
     {
         return [
-            [['name', 'parent_id'], 'required'],
-            [['parent_id', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'parent_id', 'start_niin', 'end_niin'], 'required'],
+            [['parent_id', 'created_at', 'updated_at','start_niin', 'end_niin'], 'integer'],
             [['list_item'], 'string'],
+            [['name'],'exist'],
             [['name'], 'string', 'max' => 255],
+            ['end_niin', 'compare', 'compareAttribute' => 'start_niin', 'operator' => '>'],
+            [['start_niin', 'end_niin'],'integer','min'=>7310000,'max'=>7399999],
         ];
     }
 
@@ -44,11 +52,13 @@ class CatalogGroup extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'parent_id' => 'Parent ID',
-            'list_item' => 'List Item',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'name' => 'ชื่อกุ่มพัสดุ',
+            'parent_id' => 'รหัสกลุ่มหลัก',
+            'list_item' => 'รายการพัสดุในกลุ่ม',
+            'created_at' => 'วันที่สร้างรายการ',
+            'updated_at' => 'วันที่ปรับปรุงรายการ',
+            'start_niin' => 'หมายเลข NIIN เริ่มต้น',
+            'end_niin' => 'หมายเลข NIIN สิ้นสุด',
         ];
     }
 }

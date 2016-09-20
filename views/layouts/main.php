@@ -46,7 +46,7 @@ AppAsset::register($this);
         'encodeLabels' => false,
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            [
+            /*[
                 'label' => Icon::show('bar-chart') .'งานกำหนดแผน',
                 'items' => [
                      '<li class="dropdown-header">ชั้นประมาณการ</li>',
@@ -59,7 +59,7 @@ AppAsset::register($this);
                      ['label' => 'รายการเบิกจ่ายงบประมาณ', 'url' => Url::to(['/budget-payment']) ],
                      ['label' => 'รายการรับพัสดุ (ทอ.74)', 'url' => Url::to(['/receive-supply']) ],
                 ],
-            ],
+            ],*/
             [
                 'label' => Icon::show('line-chart') .'งานติดตามแผน',
                 'items' => [
@@ -78,6 +78,7 @@ AppAsset::register($this);
                 'label' => Icon::show('sort-numeric-asc') .'งานกำหนดหมายเลข',
                 'items' => [
                     [ 'label' => 'กำหนดหมายเลขพัสดุ' , 'url' => Url::to(['/catalog-item']) ],
+                    [ 'label' => 'กลุ่มพัสดุ' , 'url' => Url::to(['/catalog-group']) ],
                 ],
             ],
             //['label' => 'About', 'url' => ['/site/about']],

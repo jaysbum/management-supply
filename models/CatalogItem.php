@@ -16,6 +16,8 @@ use Yii;
  * @property string $remark
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $niin
+ * @property integer $new
  */
 class CatalogItem extends \yii\db\ActiveRecord
 {
@@ -27,15 +29,18 @@ class CatalogItem extends \yii\db\ActiveRecord
         return 'catalog_item';
     }
 
-    /**
-     * @inheritdoc
-     */
+    public function behaviors()
+    {
+        return [
+            \yii\behaviors\TimestampBehavior::className(),
+        ];
+    }
     public function rules()
     {
         return [
-            [['nsn', 'name', 'unit_issue'], 'required'],
+            [['nsn', 'name', 'unit_issue', 'niin','gpsc','price','parent_nsn'], 'required'],
             [['price'], 'number'],
-            [['created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at', 'new','niin'], 'integer'],
             [['nsn', 'name', 'unit_issue', 'gpsc', 'remark'], 'string', 'max' => 255],
             [['nsn'], 'unique'],
         ];
@@ -48,14 +53,17 @@ class CatalogItem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nsn' => 'Nsn',
-            'name' => 'Name',
-            'unit_issue' => 'Unit Issue',
-            'price' => 'Price',
-            'gpsc' => 'Gpsc',
-            'remark' => 'Remark',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'nsn' => 'หมายเลขพัสดุ',
+            'name' => 'ชื่อพัสดุ',
+            'unit_issue' => 'หน่วยนับ',
+            'price' => 'ราคา',
+            'gpsc' => 'รหัส GPSC',
+            'remark' => 'หมายเหตุ',
+            'created_at' => 'วันที่สร้างรายการ',
+            'updated_at' => 'วันที่ปรับปรุงรายการ',
+            'niin' => 'รหัส NIIN',
+            'new' => 'รายการใหม่',
+            'parent_nsn' => 'พัสดุหลัก'
         ];
     }
 }
